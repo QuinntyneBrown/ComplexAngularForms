@@ -1,4 +1,5 @@
 using ComplexAngularForms.Api.Core;
+using ComplexAngularForms.Api.DomainEvents;
 using ComplexAngularForms.Api.Interfaces;
 using ComplexAngularForms.Api.Models;
 using FluentValidation;
@@ -32,31 +33,53 @@ namespace ComplexAngularForms.Api.Features
         public class Handler: IRequestHandler<Request, Response>
         {
             private readonly IComplexAngularFormsDbContext _context;
+            private readonly IOrchestrationHandler _orchestrationHandler;
         
-            public Handler(IComplexAngularFormsDbContext context)
-                => _context = context;
+            public Handler(IComplexAngularFormsDbContext context, IOrchestrationHandler orchestrationHandler)
+            {
+                _context = context;
+                _orchestrationHandler = orchestrationHandler;
+            }
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var birthCertificate = new BirthCertificate(new(
-                    request.BirthCertificate.Firstname,
-                    request.BirthCertificate.Lastname,
-                    request.BirthCertificate.Email,
-                    request.BirthCertificate.City,
-                    request.BirthCertificate.Province,
-                    request.BirthCertificate.DateOfBirth,
-                    request.BirthCertificate.FatherId,
-                    request.BirthCertificate.MotherId
-                    ));
-                
-                _context.BirthCertificates.Add(birthCertificate);
-                
-                await _context.SaveChangesAsync(cancellationToken);
-                
-                return new ()
+                var startWith = new CreateParents(
+                    request.BirthCertificate.Mother.Firstname,
+                    request.BirthCertificate.Mother.Lastname,
+                    request.BirthCertificate.Mother.DateOfBirth,
+                    request.BirthCertificate.Mother.MaidenName,
+                    request.BirthCertificate.Father.Firstname,
+                    request.BirthCertificate.Father.Lastname,
+                    request.BirthCertificate.Father.DateOfBirth
+                    );
+
+                return await _orchestrationHandler.Handle<Response>(startWith, (ctx) => async message =>
                 {
-                    BirthCertificate = birthCertificate.ToDto()
-                };
+                    switch (message)
+                    {
+                        case CreatedParents @event:
+                            var birthCertificate = new BirthCertificate(new(
+                                request.BirthCertificate.Firstname,
+                                request.BirthCertificate.Lastname,
+                                request.BirthCertificate.Email,
+                                request.BirthCertificate.City,
+                                request.BirthCertificate.Province,
+                                request.BirthCertificate.DateOfBirth,
+                                @event.FatherId,
+                                @event.MotherId
+                                ));
+
+                            _context.BirthCertificates.Add(birthCertificate);
+
+                            await _context.SaveChangesAsync(cancellationToken);
+
+                            ctx.SetResult(new()
+                            {
+                                BirthCertificate = birthCertificate.ToDto()
+                            });
+                            break;
+                    }
+                });
             }
             
         }

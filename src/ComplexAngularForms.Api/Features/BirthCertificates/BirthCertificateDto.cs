@@ -14,6 +14,8 @@ namespace ComplexAngularForms.Api.Features
         public DateTime DateOfBirth { get; set; }
         public Guid? FatherId { get; set; }
         public Guid? MotherId { get; set; }
+        public FatherDto Father { get; set; }
+        public MotherDto Mother { get; set; }
 
         public BirthCertificateDto()
         {

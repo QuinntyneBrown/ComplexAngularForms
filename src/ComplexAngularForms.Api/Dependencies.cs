@@ -1,3 +1,4 @@
+using ComplexAngularForms.Api.Core;
 using ComplexAngularForms.Api.Data;
 using ComplexAngularForms.Api.Extensions;
 using ComplexAngularForms.Api.Interfaces;
@@ -51,11 +52,14 @@ namespace ComplexAngularForms.Api
 
             services.AddMediatR(typeof(IComplexAngularFormsDbContext));
 
+            services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
+
             services.AddTransient<IComplexAngularFormsDbContext, ComplexAngularFormsDbContext>();
 
             services.AddDbContext<ComplexAngularFormsDbContext>(options =>
             {
-                options.UseInMemoryDatabase(nameof(ComplexAngularForms.Api))
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
+                    builder => builder.MigrationsAssembly("ComplexAngularForms.Api").EnableRetryOnFailure())
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();
             });

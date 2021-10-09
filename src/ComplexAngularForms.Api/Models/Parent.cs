@@ -1,11 +1,13 @@
 ﻿using ComplexAngularForms.Api.Core;
 using ComplexAngularForms.Api.DomainEvents;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ComplexAngularForms.Api.Models
 {
     public class Parent: AggregateRoot
     {
+        [Key]
         public Guid ParentId { get; private set; }
         public string Firstname { get; private set; }
         public string Lastname { get; private set; }
