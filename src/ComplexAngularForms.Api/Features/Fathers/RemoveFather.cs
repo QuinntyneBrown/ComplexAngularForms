@@ -14,7 +14,7 @@ namespace ComplexAngularForms.Api.Features
     {
         public class Request: IRequest<Response>
         {
-            public Guid FatherId { get; set; }
+            public Guid ParentId { get; set; }
         }
 
         public class Response: ResponseBase
@@ -31,7 +31,7 @@ namespace ComplexAngularForms.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var father = await _context.Fathers.SingleAsync(x => x.FatherId == request.FatherId);
+                var father = await _context.Fathers.SingleAsync(x => x.ParentId == request.ParentId);
                 
                 _context.Fathers.Remove(father);
                 

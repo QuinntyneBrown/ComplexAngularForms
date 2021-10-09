@@ -1,4 +1,3 @@
-using System;
 using ComplexAngularForms.Api.Models;
 
 namespace ComplexAngularForms.Api.Features
@@ -9,9 +8,11 @@ namespace ComplexAngularForms.Api.Features
         {
             return new ()
             {
-                FatherId = father.FatherId
+                ParentId = father.ParentId,
+                Firstname = father.Firstname,
+                Lastname = father.Lastname,
+                DateOfBirth = father.DateOfBirth
             };
-        }
-        
+        }        
     }
 }

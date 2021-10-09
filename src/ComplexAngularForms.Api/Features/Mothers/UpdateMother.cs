@@ -39,7 +39,7 @@ namespace ComplexAngularForms.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var mother = await _context.Mothers.SingleAsync(x => x.MotherId == request.Mother.MotherId);
+                var mother = await _context.Mothers.SingleAsync(x => x.ParentId == request.Mother.ParentId);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 

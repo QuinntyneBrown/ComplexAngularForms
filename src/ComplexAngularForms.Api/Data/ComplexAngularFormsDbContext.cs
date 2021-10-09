@@ -1,6 +1,9 @@
 using ComplexAngularForms.Api.Models;
 using ComplexAngularForms.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using ComplexAngularForms.Api.Core;
 
 namespace ComplexAngularForms.Api.Data
 {
@@ -20,6 +23,36 @@ namespace ComplexAngularForms.Api.Data
             
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ComplexAngularFormsDbContext).Assembly);
         }
-        
+
+        private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
+        {
+            var entries = ChangeTracker.Entries<AggregateRoot>()
+                .Where(
+                    e => e.State == EntityState.Added ||
+                    e.State == EntityState.Modified)
+                .Select(e => e.Entity)
+                .ToList();
+
+            foreach (var aggregate in entries)
+            {
+                foreach (var storedEvent in aggregate.StoredEvents)
+                {
+                    StoredEvents.Add(storedEvent);
+                }
+            }
+        }
+
+        public override void Dispose()
+        {
+            SavingChanges -= DbContext_SavingChanges;
+            base.Dispose();
+        }
+
+        public override ValueTask DisposeAsync()
+        {
+            SavingChanges -= DbContext_SavingChanges;
+            return base.DisposeAsync();
+        }
+
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using ComplexAngularForms.Api.Models;
 
 namespace ComplexAngularForms.Api.Features
@@ -9,9 +8,17 @@ namespace ComplexAngularForms.Api.Features
         {
             return new ()
             {
-                BirthCertificateId = birthCertificate.BirthCertificateId
+                BirthCertificateId = birthCertificate.BirthCertificateId,
+                PhotoDigitalAssetId = birthCertificate.PhotoDigitalAssetId,
+                Firstname = birthCertificate.Firstname,
+                Lastname = birthCertificate.Lastname,
+                Email = birthCertificate.Email,
+                City = birthCertificate.City,
+                Province = birthCertificate.Province,
+                DateOfBirth = birthCertificate.DateOfBirth,
+                FatherId = birthCertificate.FatherId,
+                MotherId = birthCertificate.MotherId
             };
-        }
-        
+        }        
     }
 }

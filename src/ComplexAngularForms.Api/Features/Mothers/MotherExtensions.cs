@@ -9,7 +9,11 @@ namespace ComplexAngularForms.Api.Features
         {
             return new ()
             {
-                MotherId = mother.MotherId
+                ParentId = mother.ParentId,
+                Firstname = mother.Firstname,
+                Lastname = mother.Lastname,
+                DateOfBirth = mother.DateOfBirth,
+                MaidenName = mother.MaidenName
             };
         }
         

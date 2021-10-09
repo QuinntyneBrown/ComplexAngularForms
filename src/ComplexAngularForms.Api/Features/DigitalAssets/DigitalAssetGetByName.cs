@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,32 +8,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ComplexAngularForms.Api.Features
 {
-    public class GetFatherById
+    public class GetDigitalAssetByFilename
     {
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
-            public Guid ParentId { get; set; }
+            public string Filename { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
-            public FatherDto Father { get; set; }
+            public DigitalAssetDto DigitalAsset { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IComplexAngularFormsDbContext _context;
-        
+
             public Handler(IComplexAngularFormsDbContext context)
                 => _context = context;
-        
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
-                    Father = (await _context.Fathers.SingleOrDefaultAsync(x => x.ParentId == request.ParentId)).ToDto()
+                return new()
+                {
+                    DigitalAsset = (await _context.DigitalAssets
+                    .SingleOrDefaultAsync(x => x.Name == request.Filename))
+                    .ToDto()
                 };
             }
-            
         }
     }
 }

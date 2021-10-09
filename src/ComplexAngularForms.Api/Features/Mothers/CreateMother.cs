@@ -17,7 +17,6 @@ namespace ComplexAngularForms.Api.Features
                 RuleFor(request => request.Mother).NotNull();
                 RuleFor(request => request.Mother).SetValidator(new MotherValidator());
             }
-        
         }
 
         public class Request: IRequest<Response>
@@ -39,13 +38,18 @@ namespace ComplexAngularForms.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var mother = new Mother();
+                var mother = new Mother(new(
+                    request.Mother.Firstname,
+                    request.Mother.Lastname,
+                    request.Mother.DateOfBirth,
+                    request.Mother.MaidenName
+                    ));
                 
                 _context.Mothers.Add(mother);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     Mother = mother.ToDto()
                 };

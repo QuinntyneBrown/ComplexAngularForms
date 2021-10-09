@@ -15,7 +15,7 @@ namespace ComplexAngularForms.Api.Controllers
         public MotherController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpGet("{motherId}", Name = "GetMotherByIdRoute")]
+        [HttpGet("{parentId}", Name = "GetMotherByIdRoute")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -26,7 +26,7 @@ namespace ComplexAngularForms.Api.Controllers
         
             if (response.Mother == null)
             {
-                return new NotFoundObjectResult(request.MotherId);
+                return new NotFoundObjectResult(request.ParentId);
             }
         
             return response;
@@ -60,7 +60,7 @@ namespace ComplexAngularForms.Api.Controllers
         public async Task<ActionResult<UpdateMother.Response>> Update([FromBody]UpdateMother.Request request)
             => await _mediator.Send(request);
         
-        [HttpDelete("{motherId}", Name = "RemoveMotherRoute")]
+        [HttpDelete("{parentId}", Name = "RemoveMotherRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveMother.Response), (int)HttpStatusCode.OK)]

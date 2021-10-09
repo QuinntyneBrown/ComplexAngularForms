@@ -2,8 +2,8 @@ using System;
 
 namespace ComplexAngularForms.Api.Features
 {
-    public class MotherDto
+    public class MotherDto: ParentDto
     {
-        public Guid MotherId { get; set; }
+        public string MaidenName { get; set; }
     }
 }

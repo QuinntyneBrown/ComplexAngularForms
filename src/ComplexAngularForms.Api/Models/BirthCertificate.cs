@@ -1,8 +1,11 @@
+using ComplexAngularForms.Api.Core;
+using ComplexAngularForms.Api.DomainEvents;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComplexAngularForms.Api.Models
 {
-    public class BirthCertificate
+    public class BirthCertificate: AggregateRoot
     {
         public Guid BirthCertificateId { get; private set; }
         public Guid PhotoDigitalAssetId { get; private set; }
@@ -12,15 +15,31 @@ namespace ComplexAngularForms.Api.Models
         public string City { get; private set; }
         public string Province { get; private set; }
         public DateTime DateOfBirth { get; private set; }
+        [ForeignKey("Father")]
+        public Guid? FatherId { get; private set; }
+        [ForeignKey("Mother")]
+        public Guid? MotherId { get; set; }
         public Father Father { get; private set; }
         public Mother Mother { get; private set; }
 
-        public BirthCertificate()
+        public BirthCertificate(CreateBirthCertificate @event)
+        {
+            Apply(@event);
+        }
+
+        private BirthCertificate()
         {
 
         }
 
-        private BirthCertificate()
+        protected override void When(dynamic @event) => When(@event);
+
+        private void When(CreateBirthCertificate @event)
+        {
+
+        }
+
+        protected override void EnsureValidState()
         {
 
         }

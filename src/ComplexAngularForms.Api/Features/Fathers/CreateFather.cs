@@ -39,7 +39,11 @@ namespace ComplexAngularForms.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var father = new Father();
+                var father = new Father(new (
+                    request.Father.Firstname,
+                    request.Father.Lastname,
+                    request.Father.DateOfBirth
+                    ));
                 
                 _context.Fathers.Add(father);
                 

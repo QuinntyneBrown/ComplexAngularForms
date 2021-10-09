@@ -7,7 +7,7 @@
   "applicationNamespace": "ComplexAngularForms.Api",
   "infrastructureNamespace": "ComplexAngularForms.Api",
   "apiNamespace": "ComplexAngularForms.Api",
-  "domainDirectory": "C:\\Projects\\ComplexAngularForms\\src\\ComplexAngularForms.Api",
+  "DomainDirectory": "C:\\Projects\\ComplexAngularForms\\src\\ComplexAngularForms.Api",
   "applicationDirectory": "C:\\Projects\\ComplexAngularForms\\src\\ComplexAngularForms.Api",
   "infrastructureDirectory": "C:\\Projects\\ComplexAngularForms\\src\\ComplexAngularForms.Api",
   "apiDirectory": "C:\\Projects\\ComplexAngularForms\\src\\ComplexAngularForms.Api",
