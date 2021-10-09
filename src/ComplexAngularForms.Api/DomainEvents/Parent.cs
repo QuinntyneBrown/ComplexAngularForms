@@ -8,12 +8,12 @@ namespace ComplexAngularForms.Api.DomainEvents
         public Guid ParentId { get; private set; } = Guid.NewGuid();
         public string Firstname { get; private set; }
         public string Lastname { get; private set; }
-        public DateTime DateOfBirth { get; private set; }
+        public DateTime? DateOfBirth { get; private set; }
 
         public CreateParent(
             string firstname,
             string lastname,
-            DateTime dateOfBirth)
+            DateTime? dateOfBirth)
         {
             Firstname = firstname;
             Lastname = lastname;
@@ -23,7 +23,7 @@ namespace ComplexAngularForms.Api.DomainEvents
 
     public class CreateFather: CreateParent
     {
-        public CreateFather(string firstname, string lastname, DateTime dateOfBirth)
+        public CreateFather(string firstname, string lastname, DateTime? dateOfBirth)
             :base(firstname, lastname, dateOfBirth)
         {
 
@@ -34,7 +34,7 @@ namespace ComplexAngularForms.Api.DomainEvents
     {
         public string MaidenName { get; set; }
 
-        public CreateMother(string firstname, string lastname, DateTime dateOfBirth, string maidenName)
+        public CreateMother(string firstname, string lastname, DateTime? dateOfBirth, string maidenName)
             :base(firstname,lastname,dateOfBirth)
         {
             MaidenName = maidenName;
@@ -45,20 +45,20 @@ namespace ComplexAngularForms.Api.DomainEvents
     {
         public string MotherFirstname { get; private set; }
         public string MotherLastname { get; private set; }
-        public DateTime MotherDateOfBirth { get; private set; }
+        public DateTime? MotherDateOfBirth { get; private set; }
         public string MotherMaidenName { get; private set; }
         public string FatherFirstname { get; private set; }
         public string FatherLastname { get; private set; }
-        public DateTime FatherDateOfBirth { get; private set; }
+        public DateTime? FatherDateOfBirth { get; private set; }
 
         public CreateParents(
             string motherFirstname,
             string motherLastname,
-            DateTime motherDateOfBirth,
+            DateTime? motherDateOfBirth,
             string motherMaidenName,
             string fatherFirstname,
             string fatherLastname,
-            DateTime fatherDateOfBirth)
+            DateTime? fatherDateOfBirth)
         {
             MotherFirstname = motherFirstname;
             MotherLastname = motherLastname;

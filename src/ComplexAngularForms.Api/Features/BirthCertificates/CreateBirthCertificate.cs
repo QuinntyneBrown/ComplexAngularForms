@@ -44,13 +44,13 @@ namespace ComplexAngularForms.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var startWith = new CreateParents(
-                    request.BirthCertificate.Mother.Firstname,
-                    request.BirthCertificate.Mother.Lastname,
-                    request.BirthCertificate.Mother.DateOfBirth,
-                    request.BirthCertificate.Mother.MaidenName,
-                    request.BirthCertificate.Father.Firstname,
-                    request.BirthCertificate.Father.Lastname,
-                    request.BirthCertificate.Father.DateOfBirth
+                    request.BirthCertificate.Mother?.Firstname,
+                    request.BirthCertificate.Mother?.Lastname,
+                    request.BirthCertificate.Mother?.DateOfBirth,
+                    request.BirthCertificate.Mother?.MaidenName,
+                    request.BirthCertificate.Father?.Firstname,
+                    request.BirthCertificate.Father?.Lastname,
+                    request.BirthCertificate.Father?.DateOfBirth
                     );
 
                 return await _orchestrationHandler.Handle<Response>(startWith, (ctx) => async message =>

@@ -1,37 +1,34 @@
 ﻿using ComplexAngularForms.Api.Core;
-using ComplexAngularForms.Api.DomainEvents;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ComplexAngularForms.Api.Models
 {
-    public class Parent: AggregateRoot
+    public abstract class Parent: AggregateRoot
     {
         [Key]
-        public Guid ParentId { get; private set; }
-        public string Firstname { get; private set; }
-        public string Lastname { get; private set; }
-        public DateTime DateOfBirth { get; private set; }
+        public Guid ParentId { get; protected set; }
+        public string Firstname { get; protected set; }
+        public string Lastname { get; protected set; }
+        public DateTime? DateOfBirth { get; protected set; }
 
-        public Parent(CreateParent @event)
-        {
-            Apply(@event);
-        }
-
-        protected Parent()
-        {
-
-        }
-
-        protected override void When(dynamic @event) => When(@event);
-
-        private void When(CreateParent @event)
-        {
-            ParentId = @event.ParentId;
-        }
         protected override void EnsureValidState()
         {
+            if (string.IsNullOrEmpty(Firstname))
+            {
+                throw new Exception();
+            }
 
+            if (string.IsNullOrEmpty(Lastname))
+            {
+                throw new Exception();
+            }
+
+            if (DateOfBirth == default)
+            {
+                throw new Exception();
+            }
         }
+
     }
 }

@@ -28,10 +28,9 @@ namespace ComplexAngularForms.Api.Migrations
                 columns: table => new
                 {
                     ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FatherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,11 +42,10 @@ namespace ComplexAngularForms.Api.Migrations
                 columns: table => new
                 {
                     ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MotherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MaidenName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

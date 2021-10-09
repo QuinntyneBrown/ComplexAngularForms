@@ -36,7 +36,15 @@ namespace ComplexAngularForms.Api.Models
 
         private void When(CreateBirthCertificate @event)
         {
-
+            BirthCertificateId = @event.BirthCertificateId;
+            Firstname = @event.Firstname;
+            Lastname = @event.Lastname;
+            Email = @event.Email;
+            DateOfBirth = @event.DateOfBirth;
+            City = @event.City;
+            Province = @event.Province;
+            MotherId = @event.MotherId;
+            FatherId = @event.FatherId;
         }
 
         protected override void EnsureValidState()

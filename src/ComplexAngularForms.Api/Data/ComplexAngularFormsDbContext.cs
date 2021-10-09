@@ -15,7 +15,9 @@ namespace ComplexAngularForms.Api.Data
         public DbSet<DigitalAsset> DigitalAssets { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
         public ComplexAngularFormsDbContext(DbContextOptions<ComplexAngularFormsDbContext> options)
-            :base(options) { }
+            :base(options) {
+            SavingChanges += DbContext_SavingChanges;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +26,7 @@ namespace ComplexAngularForms.Api.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ComplexAngularFormsDbContext).Assembly);
         }
 
-/*        private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
+        private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
         {
             var entries = ChangeTracker.Entries<AggregateRoot>()
                 .Where(
@@ -52,7 +54,7 @@ namespace ComplexAngularForms.Api.Data
         {
             SavingChanges -= DbContext_SavingChanges;
             return base.DisposeAsync();
-        }*/
+        }
 
     }
 }

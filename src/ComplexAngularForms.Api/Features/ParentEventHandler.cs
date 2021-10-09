@@ -53,24 +53,38 @@ namespace ComplexAngularForms.Api.Features
 
         public async Task Handle(DomainEvents.CreateMother @event, CancellationToken cancellationToken)
         {
-            var mother = new Mother(@event);
+            try
+            {
+                var mother = new Mother(@event);
 
-            _context.Mothers.Add(mother);
+                _context.Mothers.Add(mother);
 
-            await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
-            await _orchestrationHandler.Publish(new CreatedMother(mother.ParentId));
+                await _orchestrationHandler.Publish(new CreatedMother(mother.ParentId));
+            } 
+            catch
+            {
+                await _orchestrationHandler.Publish(new CreatedMother(null));
+            }
         }
 
         public async Task Handle(DomainEvents.CreateFather @event, CancellationToken cancellationToken)
         {
-            var father = new Father(@event);
+            try
+            {
+                var father = new Father(@event);
 
-            _context.Fathers.Add(father);
+                _context.Fathers.Add(father);
 
-            await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
-            await _orchestrationHandler.Publish(new CreatedFather(father.ParentId));
+                await _orchestrationHandler.Publish(new CreatedFather(father.ParentId));
+            }
+            catch
+            {
+                await _orchestrationHandler.Publish(new CreatedFather(null));
+            }
         }
     }
 }

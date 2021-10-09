@@ -30,6 +30,8 @@ namespace ComplexAngularForms.Testing
                 .BuildServiceProvider();
 
             var context = container.GetService<ComplexAngularFormsDbContext>();
+            
+            await context.Database.EnsureDeletedAsync();
 
             await context.Database.MigrateAsync();
 

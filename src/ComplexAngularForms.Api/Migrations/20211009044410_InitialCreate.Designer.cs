@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComplexAngularForms.Api.Migrations
 {
     [DbContext(typeof(ComplexAngularFormsDbContext))]
-    [Migration("20211009032856_InitialCreate")]
+    [Migration("20211009044410_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,11 +95,8 @@ namespace ComplexAngularForms.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("FatherId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Firstname")
                         .HasColumnType("nvarchar(max)");
@@ -118,7 +115,7 @@ namespace ComplexAngularForms.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Firstname")
@@ -129,9 +126,6 @@ namespace ComplexAngularForms.Api.Migrations
 
                     b.Property<string>("MaidenName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("MotherId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ParentId");
 
